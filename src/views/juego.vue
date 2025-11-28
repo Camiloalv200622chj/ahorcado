@@ -1,7 +1,6 @@
 <template>
   <div class="juego-container">
 
-    <!-- Header del juego -->
     <div class="header">
       <h1>Ahorcado</h1>
       <div class="info">
@@ -10,13 +9,11 @@
         <p><strong>Nivel:</strong> {{ level }}</p>
       </div>
 
-      <!-- Tiempo -->
       <div class="timer" :class="{ danger: timeLeft <= 5 }">
         Tiempo: {{ timeLeft }}s
       </div>
     </div>
 
-    <!-- Muñeco Ahorcado -->
     <div class="hangman">
       <div class="pole"></div>
       <div class="beam"></div>
@@ -30,14 +27,12 @@
       <div class="leg right" v-if="errors >= 6"></div>
     </div>
 
-    <!-- Palabra -->
     <div class="word">
       <span v-for="(letter, index) in displayWord" :key="index" class="letter">
         {{ letter }}
       </span>
     </div>
 
-    <!-- Letras -->
     <div class="letters">
       <button
         v-for="(letter, index) in alphabet"
@@ -50,7 +45,6 @@
       </button>
     </div>
 
-    <!-- Mensaje final -->
     <div v-if="gameOver" class="final-message">
       <h2>{{ finalMessage }}</h2>
       <button class="btn" @click="goToResults">Ver resultados</button>
@@ -67,12 +61,10 @@ export default {
   setup() {
     const router = useRouter();
 
-    // Datos del jugador
     const playerName = localStorage.getItem("nombreJugador") || "Jugador";
     const category = localStorage.getItem("category") || "General";
     const level = localStorage.getItem("level") || "Fácil";
 
-    // Tiempo por nivel
     const timeConfig = {
       Fácil: 300,
       Medio: 240,
@@ -82,7 +74,6 @@ export default {
     const timeLeft = ref(timeConfig[level]);
     let timer;
 
-    // ✅ Palabras por categoría (6 CATEGORÍAS NUEVAS, 6 PALABRAS CADA UNA)
     const wordBank = {
       Animales: [
         "PERRO", "GATO", "LEON", "TORTUGA", "ELEFANTE", "CABALLO"
@@ -107,7 +98,6 @@ export default {
       ]
     };
 
-    // Seleccionar palabra según categoría
     const selectedWord =
       wordBank[category][Math.floor(Math.random() * wordBank[category].length)];
 
@@ -128,7 +118,6 @@ export default {
     const gameOver = ref(false);
     const finalMessage = ref("");
 
-    // GUARDAR RESULTADO
     const endGame = (message) => {
       finalMessage.value = message;
       gameOver.value = true;
@@ -154,7 +143,6 @@ export default {
       localStorage.setItem("results", JSON.stringify(results));
     };
 
-    // Selección de letras
     const selectLetter = (letter) => {
       if (gameOver.value) return;
 
@@ -173,7 +161,6 @@ export default {
       }
     };
 
-    // TIMER
     onMounted(() => {
       timer = setInterval(() => {
         if (timeLeft.value > 0) timeLeft.value--;
@@ -360,8 +347,8 @@ export default {
   cursor: pointer;
 }
 
-/* Ocultar el wrapper que mete Quasar */
 .page-wrapper {
   display: none !important;
 }
 </style>
+
