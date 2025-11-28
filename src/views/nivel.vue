@@ -49,8 +49,8 @@ const cerrarModal = () => {
 </script>
 
 <style scoped>
-/* 🎮 Fondo Gamer */
-.nivel-wrapper {
+
+  .nivel-wrapper {
   height: 100vh;
   width: 100%;
   background: radial-gradient(circle at top, #7b3af5, #260047 70%);
@@ -61,7 +61,6 @@ const cerrarModal = () => {
   color: white;
 }
 
-/* Título */
 .titulo {
   font-size: 44px;
   font-weight: 900;
@@ -69,14 +68,12 @@ const cerrarModal = () => {
   margin-bottom: 40px;
 }
 
-/* GRID elegante */
 .nivel-grid {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-/* Botones gamer */
 .btn-nivel {
   background: linear-gradient(90deg, #a855f7, #7c3aed);
   border: none;
@@ -95,3 +92,4 @@ const cerrarModal = () => {
   box-shadow: 0 0 25px rgba(200, 120, 255, 1);
 }
 </style>
+
