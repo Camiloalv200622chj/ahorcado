@@ -60,7 +60,6 @@ export default {
     onMounted(() => {
       const stored = JSON.parse(localStorage.getItem("results") || "[]");
 
-      // Solo GANADORES → pero NO se borra nada del localStorage
       const winners = stored.filter(r => r.result === "Ganó");
 
       winners.forEach(r => {
@@ -162,3 +161,4 @@ export default {
   font-size: 22px;
 }
 </style>
+
