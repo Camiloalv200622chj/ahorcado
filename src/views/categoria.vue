@@ -25,7 +25,6 @@ import Modal from "../components/Modal.vue"
 
 const router = useRouter()
 
-// 📌 6 categorías
 const categorias = [
   "Animales",
   "Comida",
@@ -53,8 +52,8 @@ const cerrarModal = () => {
 </script>
 
 <style scoped>
-/* Fondo Gamer full-screen */
-.categoria-wrapper {
+
+  .categoria-wrapper {
   height: 100vh;
   width: 100%;
   background: radial-gradient(circle at top, #7b3af5, #260047 70%);
@@ -67,7 +66,6 @@ const cerrarModal = () => {
   padding: 0;
 }
 
-/* Título */
 .titulo {
   font-size: 42px;
   font-weight: 900;
@@ -75,14 +73,12 @@ const cerrarModal = () => {
   text-shadow: 0 0 12px #d4a5ff;
 }
 
-/* GRID DE 6 BOTONES */
 .categorias-grid {
   display: grid;
   grid-template-columns: repeat(2, 260px);
   gap: 25px;
 }
 
-/* Botón gamer */
 .btn-cat {
   background: linear-gradient(90deg, #a855f7, #7c3aed);
   border: none;
@@ -101,3 +97,4 @@ const cerrarModal = () => {
   box-shadow: 0 0 25px rgba(200, 120, 255, 1);
 }
 </style>
+
