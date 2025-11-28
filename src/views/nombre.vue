@@ -37,8 +37,8 @@ const guardarNombre = () => {
 }
 </script>
 <style>
-/* Pantalla completa sin scroll */
-.nombre-wrapper {
+
+  .nombre-wrapper {
   height: 100vh;
   width: 100%;
   overflow: hidden;
@@ -49,8 +49,8 @@ const guardarNombre = () => {
   padding: 0;
 }
 
-/* Tarjeta glass con más profundidad */
-.card {
+
+  .card {
   background: rgba(255, 255, 255, 0.08);
   padding: 50px 45px;
   width: 460px;
@@ -63,13 +63,11 @@ const guardarNombre = () => {
   animation: fadeUp 0.6s ease-out;
 }
 
-/* Animación suave */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Título más gamer */
 .title {
   font-size: 36px;
   font-weight: 900;
@@ -78,7 +76,6 @@ const guardarNombre = () => {
   margin-bottom: 35px;
 }
 
-/* Input moderno */
 .input {
   width: 100%;
   padding: 16px;
@@ -103,7 +100,6 @@ const guardarNombre = () => {
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Botón neon gamer pro */
 .btn {
   width: 100%;
   padding: 18px;
@@ -122,5 +118,6 @@ const guardarNombre = () => {
   transform: scale(1.07);
   box-shadow: 0 0 28px rgba(200, 120, 255, 1);
 }
+
 
 </style>
