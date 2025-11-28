@@ -25,8 +25,8 @@ const goNombre = () => router.push('/nombre')
 </script>
 
 <style scoped>
-/* 💜 Fondo gamer morado */
-.inicio-wrapper {
+
+  .inicio-wrapper {
   height: 100vh;
   width: 100%;
   background: radial-gradient(circle at top, #7b3af5, #3c0066 70%);
@@ -35,7 +35,6 @@ const goNombre = () => router.push('/nombre')
   align-items: center;
 }
 
-/* 🕹 Tarjeta estilo arcade */
 .card {
   background: rgba(255, 255, 255, 0.06);
   padding: 40px;
@@ -62,7 +61,6 @@ const goNombre = () => router.push('/nombre')
   text-shadow: 0 0 10px #c084ff;
 }
 
-/* ✨ Botón gamer estilo neón */
 .btn {
   width: 100%;
   padding: 18px;
@@ -82,3 +80,4 @@ const goNombre = () => router.push('/nombre')
   box-shadow: 0 0 20px rgba(168, 85, 247, 1);
 }
 </style>
+
