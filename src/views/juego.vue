@@ -8,13 +8,10 @@
         <p><strong>Categoría:</strong> {{ category }}</p>
         <p><strong>Nivel:</strong> {{ level }}</p>
 
-        <p><strong>Intentos:</strong> {{ maxErrors - errors }}</p>
+        <p><strong>Intentos restantes:</strong> {{ maxErrors - errors }}</p>
 
         <div class="life-bar">
-          <div
-            class="life"
-            :style="{ width: lifePercent + '%' }"
-          ></div>
+          <div class="life" :style="{ width: lifePercent + '%' }"></div>
         </div>
       </div>
 
@@ -23,6 +20,7 @@
       </div>
     </div>
 
+    <!-- Ahorcado -->
     <div class="hangman" :class="{ shake: shakeEffect }">
       <div class="pole"></div>
       <div class="beam"></div>
@@ -36,12 +34,14 @@
       <div class="leg right" v-if="errors >= 6"></div>
     </div>
 
+    <!-- Palabra -->
     <div class="word">
       <span v-for="(letter, index) in displayWord" :key="index" class="letter">
         {{ letter }}
       </span>
     </div>
 
+    <!-- Teclado -->
     <div class="letters">
       <button
         v-for="(letter, index) in alphabet"
@@ -54,10 +54,12 @@
       </button>
     </div>
 
-    <div v-if="level === 'Fácil'" class="hint-box">
+    <!-- PISTA SOLO EN NIVEL FÁCIL -->
+    <div v-if="level.toLowerCase() === 'fácil' || level.toLowerCase() === 'facil'" class="hint-box">
       <p><strong>Pista:</strong> {{ hintText }}</p>
     </div>
 
+    <!-- Game Over -->
     <div v-if="gameOver" class="final-message">
       <h2>{{ finalMessage }}</h2>
       <button class="btn" @click="goToResults">Ver resultados</button>
@@ -74,83 +76,65 @@ export default {
   setup() {
     const router = useRouter();
 
+    // 🔥 AQUÍ ESTABA EL ERROR: ahora sí toma la categoría correcta
     const playerName = localStorage.getItem("nombreJugador") || "Jugador";
-    const category = localStorage.getItem("category") || "General";
+    const category = localStorage.getItem("categoriaSeleccionada") || "General";
     const level = localStorage.getItem("nivelSeleccionado") || "Fácil";
 
+    // Tiempo por nivel
     const timeConfig = {
       facil: 300,
       medio: 240,
       dificil: 180
     };
 
-    const timeLeft = ref(timeConfig[level] || 240);
+    const timeLeft = ref(timeConfig[level.toLowerCase()] || 240);
     let timer;
 
+    // Intentos por nivel (se guarda en nivel.vue)
     const maxErrors = Number(localStorage.getItem("intentosMax")) || 6;
 
     const shakeEffect = ref(false);
 
+    // BANCO DE PALABRAS
     const wordBank = {
       Animales: ["PERRO", "GATO", "LEON", "TORTUGA", "ELEFANTE", "CABALLO"],
       Comida: ["PIZZA", "HAMBURGUESA", "SPAGHETTI", "ARROZ", "EMPANADA", "PERROCALIENTE"],
-      Paises: ["COLOMBIA", "MEXICO", "ARGENTINA", "BRASIL", "PERU", "CHILE"],
-      Frutas: ["MANZANA", "BANANO", "SANDIA", "MELON", "PERA", "KIWI"],
-      Colores: ["ROJO", "AZUL", "VERDE", "AMARILLO", "NARANJA", "MORADO"],
-      Objetos: ["MESA", "SILLA", "CELULAR", "COMPUTADOR", "LAPIZ", "CAMA"],
-      General: ["AHORCADO", "JUEGO", "PROGRAMAR"]
+      Países: ["COLOMBIA", "MEXICO", "ARGENTINA", "BRASIL", "PERU", "CHILE"],
+      Deportes: ["FUTBOL", "TENIS", "BALONCESTO", "NATACION", "CICLISMO"],
+      Tecnología: ["CELULAR", "TECLADO", "COMPUTADOR", "MONITOR"],
+      Películas: ["TITANIC", "AVATAR", "GLADIADOR", "COCO", "FROZEN"],
+      General: ["AHORCADO", "PROGRAMAR", "JUEGO"]
     };
 
+    // Selecciona palabra aleatoria
+    const selectedWord =
+      wordBank[category]?.[Math.floor(Math.random() * wordBank[category].length)] || "ERROR";
+
+    // Pistas
     const hints = {
       PERRO: "Es el mejor amigo del hombre.",
       GATO: "Le gusta cazar ratones.",
-      LEON: "Es conocido como el rey de la selva.",
-      TORTUGA: "Tiene un caparazón muy duro.",
-      ELEFANTE: "Tiene una trompa larga.",
-      CABALLO: "Se usa para montar.",
-
-      PIZZA: "Comida italiana muy popular.",
-      HAMBURGUESA: "Viene en pan y suele tener carne.",
-      SPAGHETTI: "Pasta larga y delgada.",
-      ARROZ: "Grano blanco muy consumido.",
-      EMPANADA: "Masa rellena con carne o pollo.",
+      LEON: "Considerado el rey de la selva.",
+      TORTUGA: "Tiene caparazón.",
+      ELEFANTE: "Tiene trompa.",
+      CABALLO: "Se puede montar.",
+      PIZZA: "Comida italiana.",
+      HAMBURGUESA: "Carne entre panes.",
+      SPAGHETTI: "Pasta italiana.",
+      ARROZ: "Grano blanco común.",
+      EMPANADA: "Frita y rellena.",
       PERROCALIENTE: "Pan con salchicha.",
-
-      COLOMBIA: "Su capital es Bogotá.",
+      COLOMBIA: "Capital: Bogotá.",
       MEXICO: "Famoso por los tacos.",
       ARGENTINA: "Famosa por el tango.",
-      BRASIL: "Es conocido por el carnaval.",
-      PERU: "Tiene Machu Picchu.",
-      CHILE: "Es un país muy largo.",
-
-      MANZANA: "Fruta de Blancanieves.",
-      BANANO: "Amarillo y lo comen los monos.",
-      SANDIA: "Es roja por dentro y tiene semillas negras.",
-      MELON: "Fruta dulce verde o naranja.",
-      PERA: "Fruta verde, jugosa y alargada.",
-      KIWI: "Fruta café por fuera y verde por dentro.",
-
-      ROJO: "Color de la sangre.",
-      AZUL: "Color del cielo.",
-      VERDE: "Color del césped.",
-      AMARILLO: "Color del sol.",
-      NARANJA: "Color de una fruta cítrica.",
-      MORADO: "Color asociado a la realeza.",
-
-      MESA: "Tiene patas y se usa para comer.",
-      SILLA: "Sirve para sentarse.",
-      CELULAR: "Lo usas para llamar o chatear.",
-      COMPUTADOR: "Máquina para trabajar o jugar.",
-      LAPIZ: "Se usa para escribir.",
-      CAMA: "La usas para dormir.",
-
-      AHORCADO: "Es el nombre del juego.",
-      JUEGO: "Actividad que entretiene.",
-      PROGRAMAR: "Crear software."
+      BRASIL: "Carnaval famoso.",
+      PERU: "Machu Picchu.",
+      CHILE: "País largo.",
+      AHORCADO: "Es el juego.",
+      PROGRAMAR: "Crear software.",
+      JUEGO: "Actividad divertida."
     };
-
-    const selectedWord =
-      wordBank[category][Math.floor(Math.random() * wordBank[category].length)];
 
     const hintText = ref(hints[selectedWord] || "Sin pista disponible.");
 
@@ -160,11 +144,7 @@ export default {
     const lifePercent = computed(() => ((maxErrors - errors.value) / maxErrors) * 100);
 
     const displayWord = computed(() =>
-      selectedWord
-        .split("")
-        .map((letter) =>
-          usedLetters.value.includes(letter) ? letter : "_"
-        )
+      selectedWord.split("").map((l) => (usedLetters.value.includes(l) ? l : "_"))
     );
 
     const alphabet = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".split("");
@@ -172,28 +152,28 @@ export default {
     const gameOver = ref(false);
     const finalMessage = ref("");
 
-    const endGame = (message) => {
-      finalMessage.value = message;
+    // Finaliza juego
+    const endGame = (msg) => {
+      finalMessage.value = msg;
       gameOver.value = true;
       clearInterval(timer);
 
-      const totalTime = timeConfig[level];
-      const timeUsed = totalTime - timeLeft.value;
+      const total = timeConfig[level.toLowerCase()];
+      const timeUsed = total - timeLeft.value;
 
       const results = JSON.parse(localStorage.getItem("results") || "[]");
 
-      const newResult = {
+      results.push({
         player: playerName,
         category,
         level,
         word: selectedWord,
-        result: message.includes("Ganaste") ? "Ganó" : "Perdió",
+        result: msg.includes("Ganaste") ? "Ganó" : "Perdió",
         errors: errors.value,
         tiempo: timeUsed,
-        date: new Date().toISOString(),
-      };
+        date: new Date().toISOString()
+      });
 
-      results.push(newResult);
       localStorage.setItem("results", JSON.stringify(results));
     };
 
@@ -226,9 +206,7 @@ export default {
       }, 1000);
     });
 
-    const goToResults = () => {
-      router.push("/tiempos");
-    };
+    const goToResults = () => router.push("/tiempos");
 
     return {
       playerName,
@@ -251,6 +229,9 @@ export default {
   }
 };
 </script>
+
+
+
 
 <style scoped>
 .juego-container {
@@ -451,6 +432,7 @@ export default {
   display: none !important;
 }
 </style>
+
 
 
 
