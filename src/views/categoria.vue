@@ -25,6 +25,7 @@ import Modal from "../components/Modal.vue"
 
 const router = useRouter()
 
+// 📌 6 categorías
 const categorias = [
   "Animales",
   "Comida",
@@ -52,8 +53,7 @@ const cerrarModal = () => {
 </script>
 
 <style scoped>
-
-  .categoria-wrapper {
+.categoria-wrapper {
   height: 100vh;
   width: 100%;
   background: radial-gradient(circle at top, #7b3af5, #260047 70%);
@@ -97,6 +97,7 @@ const cerrarModal = () => {
   box-shadow: 0 0 25px rgba(200, 120, 255, 1);
 }
 </style>
+
 
 
 
