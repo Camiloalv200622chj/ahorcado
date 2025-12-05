@@ -37,6 +37,14 @@ const mensajeModal = ref("");
 const seleccionarNivel = (nivel) => {
   localStorage.setItem("nivelSeleccionado", nivel);
 
+  let intentosMax = 0;
+
+  if (nivel === "facil") intentosMax = 8;   
+  if (nivel === "medio") intentosMax = 5;
+  if (nivel === "dificil") intentosMax = 3;
+
+  localStorage.setItem("intentosMax", intentosMax);
+
   mensajeModal.value = `Nivel seleccionado: ${nivel}`;
   mostrarModal.value = true;
 
@@ -50,7 +58,7 @@ const cerrarModal = () => {
 
 <style scoped>
 
-  .nivel-wrapper {
+.nivel-wrapper {
   height: 100vh;
   width: 100%;
   background: radial-gradient(circle at top, #7b3af5, #260047 70%);
@@ -92,4 +100,5 @@ const cerrarModal = () => {
   box-shadow: 0 0 25px rgba(200, 120, 255, 1);
 }
 </style>
+
 
