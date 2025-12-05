@@ -39,7 +39,7 @@ const mostrarModal = ref(false)
 const mensajeModal = ref("")
 
 const seleccionarCategoria = (cat) => {
-const category = localStorage.getItem("categoriaSeleccionada") || "General"
+localStorage.setItem("categoriaSeleccionada", cat)
 
   mensajeModal.value = `Categoría seleccionada: ${cat}`
   mostrarModal.value = true
@@ -97,6 +97,7 @@ const cerrarModal = () => {
   box-shadow: 0 0 25px rgba(200, 120, 255, 1);
 }
 </style>
+
 
 
 
