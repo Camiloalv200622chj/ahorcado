@@ -19,7 +19,6 @@
       </div>
     </div>
 
-    <!-- Ahorcado -->
     <div class="hangman" :class="{ shake: shakeEffect }">
       <div class="pole"></div>
       <div class="beam"></div>
@@ -33,14 +32,12 @@
       <div class="leg right" v-if="errors >= 6"></div>
     </div>
 
-    <!-- Palabra -->
     <div class="word">
       <span v-for="(letter, index) in displayWord" :key="index" class="letter">
         {{ letter }}
       </span>
     </div>
 
-    <!-- Teclado -->
     <div class="letters">
       <button
         v-for="(letter, index) in alphabet"
@@ -53,12 +50,10 @@
       </button>
     </div>
 
-    <!-- PISTA SOLO EN MODO FÁCIL -->
     <div v-if="level.toLowerCase() === 'fácil' || level.toLowerCase() === 'facil'" class="hint-box">
       <p><strong>Pista:</strong> {{ hintText }}</p>
     </div>
 
-    <!-- Game Over -->
     <div v-if="gameOver" class="final-message">
       <h2>{{ finalMessage }}</h2>
       <button class="btn" @click="goToResults">Ver resultados</button>
@@ -75,12 +70,10 @@ export default {
   setup() {
     const router = useRouter();
 
-    // DATOS GUARDADOS
     const playerName = localStorage.getItem("nombreJugador") || "Jugador";
     const category = (localStorage.getItem("categoriaSeleccionada") || "General").trim();
     const level = localStorage.getItem("nivelSeleccionado") || "Fácil";
 
-    // Tiempo por nivel
     const timeConfig = {
       facil: 300,
       medio: 240,
@@ -90,12 +83,10 @@ export default {
     const timeLeft = ref(timeConfig[level.toLowerCase()] || 240);
     let timer;
 
-    // Intentos
     const maxErrors = Number(localStorage.getItem("intentosMax")) || 6;
 
     const shakeEffect = ref(false);
 
-    // BANCO DE PALABRAS COMPLETO
     const wordBank = {
       Animales: ["PERRO", "GATO", "LEON", "TORTUGA", "ELEFANTE", "CABALLO"],
       Comida: ["PIZZA", "HAMBURGUESA", "SPAGHETTI", "ARROZ", "EMPANADA", "PERROCALIENTE"],
@@ -106,15 +97,13 @@ export default {
       General: ["AHORCADO", "PROGRAMAR", "JUEGO"]
     };
 
-    // PALABRA ALEATORIA
     const selectedWord =
       wordBank[category] && wordBank[category].length > 0
         ? wordBank[category][Math.floor(Math.random() * wordBank[category].length)]
         : "ERROR";
 
-    // PISTAS COMPLETAS
     const hints = {
-      // Animales
+
       PERRO: "Es el mejor amigo del hombre.",
       GATO: "Animal que maúlla.",
       LEON: "El rey de la selva.",
@@ -122,7 +111,6 @@ export default {
       ELEFANTE: "Tiene una gran trompa.",
       CABALLO: "Se puede montar.",
 
-      // Comida
       PIZZA: "Comida italiana famosa.",
       HAMBURGUESA: "Carne entre panes.",
       SPAGHETTI: "Pasta larga.",
@@ -130,7 +118,6 @@ export default {
       EMPANADA: "Frita y rellena.",
       PERROCALIENTE: "Pan con salchicha.",
 
-      // Países
       COLOMBIA: "Su capital es Bogotá.",
       MEXICO: "Muy famoso por los tacos.",
       ARGENTINA: "Cuna del tango.",
@@ -138,27 +125,23 @@ export default {
       PERU: "Hogar de Machu Picchu.",
       CHILE: "Uno de los países más largos.",
 
-      // Deportes
       FUTBOL: "Se juega con un balón y 11 jugadores.",
       TENIS: "Se juega con raquetas.",
       BALONCESTO: "Consiste en encestar una pelota.",
       NATACION: "Se practica en el agua.",
       CICLISMO: "Se practica en bicicleta.",
 
-      // Tecnología
       CELULAR: "Lo usas varias veces al día.",
       TECLADO: "Tiene muchas teclas.",
       COMPUTADOR: "Sirve para trabajar o jugar.",
       MONITOR: "Pantalla donde ves todo.",
 
-      // Películas
       TITANIC: "Trata de un barco hundido.",
       AVATAR: "Personajes de color azul.",
       GLADIADOR: "Peleas en la antigua Roma.",
       COCO: "Película sobre el Día de Muertos.",
       FROZEN: "La reina del hielo.",
 
-      // General
       AHORCADO: "Es el juego que estás jugando.",
       PROGRAMAR: "Crear software.",
       JUEGO: "Actividad divertida."
@@ -182,7 +165,6 @@ export default {
     const gameOver = ref(false);
     const finalMessage = ref("");
 
-    // FINALIZA JUEGO
     const endGame = (msg) => {
       finalMessage.value = msg;
       gameOver.value = true;
@@ -458,5 +440,6 @@ export default {
 .page-wrapper {
   display: none !important;
 }</style>
+
 
 
