@@ -261,6 +261,202 @@ export default {
 </script>
 
 <style scoped>
-/* (Tu CSS queda igual, no necesita cambios) */
-</style>
+.juego-container {
+  text-align: center;
+  color: white;
+  padding: 20px;
+  background: #3b1e5e;
+  min-height: 100vh;
+}
+
+.hint-box {
+  margin-top: 20px;
+  background: #5c2d91;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 18px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.info p {
+  margin: 0;
+}
+
+.life-bar {
+  width: 200px;
+  height: 15px;
+  background: #4a256f;
+  border-radius: 8px;
+  margin: 10px auto;
+  overflow: hidden;
+}
+
+.life {
+  height: 100%;
+  background: #00ff8c;
+  transition: width 0.4s ease;
+}
+
+.timer {
+  font-size: 24px;
+  font-weight: bold;
+  background: #5c2d91;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.timer.danger {
+  background: red;
+  color: black;
+}
+
+.shake {
+  animation: shakeAnim 0.3s ease-in-out;
+}
+
+@keyframes shakeAnim {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+
+.hangman {
+  margin: 20px auto;
+  width: 200px;
+  height: 300px;
+  position: relative;
+}
+
+.pole {
+  width: 10px;
+  height: 250px;
+  background: white;
+  position: absolute;
+  left: 10px;
+  top: 20px;
+}
+
+.beam {
+  width: 120px;
+  height: 10px;
+  background: white;
+  position: absolute;
+  left: 10px;
+  top: 20px;
+}
+
+.rope {
+  width: 2px;
+  height: 40px;
+  background: white;
+  position: absolute;
+  left: 130px;
+  top: 30px;
+}
+
+.head {
+  width: 50px;
+  height: 50px;
+  border: 3px solid white;
+  border-radius: 50%;
+  position: absolute;
+  left: 105px;
+  top: 70px;
+}
+
+.body {
+  width: 3px;
+  height: 70px;
+  background: white;
+  position: absolute;
+  left: 130px;
+  top: 120px;
+}
+
+.arm {
+  width: 40px;
+  height: 3px;
+  background: white;
+  position: absolute;
+  top: 150px;
+}
+
+.arm.left {
+  left: 90px;
+}
+
+.arm.right {
+  left: 130px;
+}
+
+.leg {
+  width: 3px;
+  height: 50px;
+  background: white;
+  position: absolute;
+  top: 190px;
+}
+
+.leg.left {
+  left: 115px;
+}
+
+.leg.right {
+  left: 145px;
+}
+
+.word {
+  margin: 20px;
+  font-size: 30px;
+  letter-spacing: 12px;
+}
+
+.letters {
+  margin-top: 20px;
+}
+
+.letter-btn {
+  background: #5c2d91;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  margin: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.letter-btn:disabled {
+  background: #a883d3;
+}
+
+.final-message {
+  margin-top: 20px;
+  font-size: 28px;
+}
+
+.btn {
+  background: #8a2be2;
+  padding: 12px 20px;
+  border: none;
+  color: white;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.page-wrapper {
+  display: none !important;
+}</style>
+
 
