@@ -36,31 +36,52 @@ const guardarNombre = () => {
   router.push("/categoria")
 }
 </script>
-<style>
 
-  .nombre-wrapper {
+<style scoped>
+.nombre-wrapper {
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  background: radial-gradient(circle at 30% -20%, #a855f7, #3c0066 70%);
+  background-color: #1a0033;
+  background-image: 
+    radial-gradient(circle at center, rgba(123, 58, 245, 0.15) 0%, transparent 40%),
+    linear-gradient(to right, #3c0066 1px, transparent 1px),
+    linear-gradient(to bottom, #3c0066 1px, transparent 1px);
+  background-size: 40px 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
 }
 
-
-  .card {
-  background: rgba(255, 255, 255, 0.08);
+.card {
+  background: rgba(255, 255, 255, 0.04);
   padding: 50px 45px;
-  width: 460px;
-  border-radius: 22px;
-  backdrop-filter: blur(20px);
-  border: 2px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 0 40px rgba(150, 90, 255, 0.55);
+  width: 480px; 
+  border-radius: 24px;
+  backdrop-filter: blur(25px) brightness(1.1); 
+  border: 2px solid rgba(255, 255, 255, 0.25); 
   text-align: center;
   transform: translateY(0);
-  animation: fadeUp 0.6s ease-out;
+  animation: pulse-shadow 2s infinite alternate, fadeUp 0.6s ease-out; 
+  
+  box-shadow: 
+    0 0 35px rgba(149, 80, 255, 0.8), 
+    inset 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+@keyframes pulse-shadow {
+  from {
+    box-shadow: 
+      0 0 30px rgba(149, 80, 255, 0.8),
+      inset 0 0 10px rgba(255, 255, 255, 0.15);
+  }
+  to {
+    box-shadow: 
+      0 0 45px rgba(149, 80, 255, 1), 
+      inset 0 0 20px rgba(255, 255, 255, 0.25);
+  }
 }
 
 @keyframes fadeUp {
@@ -69,55 +90,89 @@ const guardarNombre = () => {
 }
 
 .title {
-  font-size: 36px;
+  font-family: 'Arial Black', sans-serif;
+  font-size: 40px;
   font-weight: 900;
   color: #fff;
-  text-shadow: 0 0 12px #bf8bff;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+  
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 15px #c084ff,
+    0 0 30px #a855f7;
+    
+  animation: neon-flicker 1.5s infinite alternate ease-in-out;
 }
+
+@keyframes neon-flicker {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px #fff,
+      0 0 15px #c084ff,
+      0 0 30px #a855f7;
+  }
+  50% {
+    text-shadow: 
+      0 0 2px #fff,
+      0 0 10px #c084ff,
+      0 0 20px rgba(168, 85, 247, 0.6);
+  }
+}
+
 
 .input {
   width: 100%;
-  padding: 16px;
-  border-radius: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.12);
-  color: white;
-  font-size: 20px;
-  margin-bottom: 30px;
+  padding: 18px; 
+  border-radius: 16px; 
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  background: rgba(255, 255, 255, 0.08); 
+  color: #fff;
+  font-size: 22px; 
+  margin-bottom: 40px; 
   outline: none;
-  transition: 0.3s;
-  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.15);
+  transition: 0.3s ease-in-out;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5); 
 }
 
 .input::placeholder {
   color: #e9d5ff;
+  opacity: 0.8;
 }
 
 .input:focus {
-  border-color: #d9b3ff;
-  box-shadow: 0 0 14px #c084ff;
+  border-color: #a855f7; 
+  box-shadow: 
+    0 0 8px #a855f7,
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.15);
 }
 
+
 .btn {
   width: 100%;
-  padding: 18px;
-  background: linear-gradient(90deg, #c084fc, #9333ea);
+  padding: 20px; 
+  background: linear-gradient(90deg, #a855f7, #7c3aed); 
   color: white;
   border: none;
-  border-radius: 14px;
-  font-size: 22px;
-  font-weight: 700;
+  border-radius: 16px; 
+  font-size: 24px; 
+  font-weight: 800; 
   cursor: pointer;
-  box-shadow: 0 0 18px rgba(170, 60, 255, 0.8);
-  transition: 0.25s ease-out;
+  
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.9);
+  transition: 0.3s ease-in-out;
 }
 
 .btn:hover {
-  transform: scale(1.07);
-  box-shadow: 0 0 28px rgba(200, 120, 255, 1);
+  transform: scale(1.03); 
+  box-shadow: 
+    0 0 40px rgba(168, 85, 247, 1),
+    0 0 10px rgba(255, 255, 255, 0.5); 
 }
 
-
+.btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
 </style>
